@@ -15,8 +15,8 @@ class Agent():
         return action
 
 
-if __name__ == "__main__":
 
+def main():
     game_name = "CartPole-v1"
 
     #getting game environment
@@ -49,3 +49,7 @@ if __name__ == "__main__":
         # show game window
         env.render()    
         print("Episode: {}, Episode_rewards: {}, states: {}, info:{}, done:{}, total_reward:{}".format(ep, reward, state, info, done, total_reward))
+
+if __name__ == "__main__":
+    main()
+    
