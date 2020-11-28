@@ -1,0 +1,72 @@
+
+from q_agent import QAgent
+import gym
+from gym.envs.registration import register
+
+
+
+
+def main():
+    try:
+        register(
+            id='FrozenLakeNoSlip-v0',
+            entry_point='gym.envs.toy_text:FrozenLakeEnv',
+            kwargs={'map_name' : '4x4', 'is_slippery':False},
+            max_episode_steps=100,
+            reward_threshold=0.78, # optimum = .8196
+        )
+    except:
+        pass
+
+    game_name = "CartPole-v1"
+    # game_name = "MountainCar-v0"
+    # game_name = "FrozenLake-v0"
+    # game_name = "FrozenLakeNoSlip-v0"
+    
+    # gettig game environment
+    env = gym.make(game_name)
+    
+    # print("Observation space:", env.observation_space)
+    # print("Action space:", env.action_space)
+    # type(env.action_space)
+    
+    # number of episode
+    episode = 100
+
+    # agent environment
+    agent = QAgent(env, random_start=False)
+
+    total_reward = 0
+    for ep in range(episode):
+        # agent state reset
+        state = env.reset()
+
+        # getting state
+        state = agent.get_state(state)
+        # flag for terminating state
+        done = False
+        while not done:
+            # selecting action 
+            action = agent.get_action(state)
+            # performing action
+            next_state, reward, done, info = env.step(action)
+            # getting state
+            next_state = agent.get_state(next_state)
+            # training agent
+            agent.train((state,action,next_state,reward,done))
+            lst = [episode, reward, state, action, next_state, done, info, total_reward]
+            # moving to next state
+            state = next_state
+            # calculating reward
+            total_reward += reward
+            print("Episode: {}, Episode_rewards: {}, states: {}, action:{}, info:{}, done:{}, total_reward:{}".format(ep, reward, state, action, info, done, total_reward))
+            # show game screen
+            env.render()
+            agent.save_summary(lst)
+    agent.save_q_table()
+            
+
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,39 @@
+Create a virtual environment with using python.
+pip install virtualenv
+virtualenv striker
+source ./striker/bin/activate
+
+Now virtual environment is activated. Now install important libraries to run the retro. 
+pip install tensorflow
+pip install retro
+
+
+Now Run the environment.
+Error:
+Traceback (most recent call last):
+  File "airstriker_dqn.py", line 71, in <module>
+    env = retro.make(game_name)
+AttributeError: module 'retro' has no attribute 'make'
+
+
+~/mehmood-uni-data/semester-07/project-1/airstriker/lib/python3.7/site-packages$ rm -rf retro/ 
+
+or 
+
+uninstall the retro and install gym-retro
+
+pip uninstall retro
+pip install gym-retro
+
+
+Installing collected packages: cloudpickle, pyglet, gym, gym-retro
+ERROR: After October 2020 you may experience errors when installing or updating packages. This is because pip will change the way that it resolves dependency conflicts.
+
+We recommend you use --use-feature=2020-resolver to test your packages with the new resolver before it becomes the default.
+
+gym 0.17.2 requires pyglet<=1.5.0,>=1.4.0, but you'll have pyglet 1.5.7 which is incompatible.
+
+
+pip install pyglet==1.5.0
+
+Now run the code.
