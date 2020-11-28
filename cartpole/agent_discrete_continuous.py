@@ -8,8 +8,7 @@ import numpy as np
 
 class Agent():
     def __init__(self, env):
-        self.is_discrete = \
-            type(env.action_space) == gym.spaces.discrete.Discrete
+        self.is_discrete = type(env.action_space) == gym.spaces.discrete.Discrete
         
         if self.is_discrete:
             self.action_size = env.action_space.n
@@ -29,7 +28,9 @@ class Agent():
                     self.action_shape)
         return action
 
-if __name__ == "__main__":
+
+
+def main():
     game_name = "CartPole-v1"
     # game_name = "MountainCar-v0"
     # game_name = "MountainCarContinuous-v0"
@@ -68,3 +69,8 @@ if __name__ == "__main__":
         # show game window
         env.render()    
         print("Episode: {}, Episode_rewards: {}, states: {}, info:{}, done:{}, total_reward:{}".format(ep, reward, state, info, done, total_reward))
+
+
+
+if __name__ == "__main__":
+    main()
